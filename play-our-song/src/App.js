@@ -56,8 +56,7 @@ export const useStyles = makeStyles(theme => ({
   queue: {
     margin: theme.spacing(5, 0, 0, 0),
     width: '100%',
-    minwidth: 800,
-    maxWidth: 1200,
+
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -83,7 +82,6 @@ const App = () =>  {
   return(
   <React.Fragment>
   <TopBar className={classes.grow} />
-
 
   <Container maxWidth="md" >
     <Queue tracks={ tracks } />
