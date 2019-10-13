@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import Queue from './components/Queue';
-import TopBar from './components/TopBar';
+import React from 'react';
 import { fade,makeStyles } from '@material-ui/core/styles';
-//import {useStyles} from './components/Style';
-
-import Container from '@material-ui/core/Container';
-
 
 
 export const useStyles = makeStyles(theme => ({
@@ -57,40 +51,10 @@ export const useStyles = makeStyles(theme => ({
     margin: theme.spacing(5, 0, 0, 0),
     width: '100%',
     minwidth: 800,
-    maxWidth: 1200,
+    maxWidth: 1000,
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
     display: 'inline',
   },
 }));
-
-const App = () =>  {
-  const classes = useStyles();
-
-  const [data, setData] = useState({});
-  const tracks = Object.values(data);
-  useEffect(() => {
-    const fetchTracks = async () => {
-      const response = await fetch('./data/tracks.json');
-      const json = await response.json();
-      setData(json);
-    };
-    fetchTracks();
-  }, []);
-
-
-  return(
-  <React.Fragment>
-  <TopBar className={classes.grow} />
-
-
-  <Container maxWidth="md" >
-    <Queue tracks={ tracks } />
-  </Container>
-  </React.Fragment>
-  
-);}
-
-
-export default App;
