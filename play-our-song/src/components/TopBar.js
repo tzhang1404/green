@@ -4,14 +4,21 @@ import {useStyles} from '../App';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import IntegrationDownshift from './SearchList';
 
 const TopBar = () => {
+
 const classes = useStyles();
 return(
 <AppBar position="static">
     <Toolbar>
+            <IconButton edge="start" color="inherit">
+            <MusicNoteIcon fontSize="large"/>
+            </IconButton>
             <Typography className={classes.title} variant="h6" noWrap>
               PlayOurSong
             </Typography>
@@ -19,21 +26,15 @@ return(
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
+              <IntegrationDownshift />
             </div>
-          </Toolbar>
+              
+            <IconButton edge="end" aria-label="account of current user" color="inherit">
+              <AccountCircle fontSize="medium"/>
+            </IconButton>
+    </Toolbar>
   </AppBar>
 )
-	};
-
-
-
+  };
 
 export default TopBar;
