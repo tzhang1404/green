@@ -1,4 +1,3 @@
-import React from 'react';
 import { fade,makeStyles } from '@material-ui/core/styles';
 
 
@@ -56,5 +55,10 @@ export const useStyles = makeStyles(theme => ({
   },
   inline: {
     display: 'inline',
+  },
+  searchlist: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
   },
 }));
