@@ -98,7 +98,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const IntegrationDownshift = (queuedTracks) => {
+const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
   const classes = useStyles();
   const [suggestions, setSuggestions] = useState([]);
   const [allTracks, setAllTracks] = useState([]);
@@ -141,8 +141,9 @@ const IntegrationDownshift = (queuedTracks) => {
     if (!selectedItem) {
       return;
     }
-    console.log('Id of selected item is', selectedItem.id);
-    queuedTracks.push(getTrack(selectedItem.id));
+    queuedTracks.items.push(getTrack(selectedItem.id));
+    queuedTracks.setItems(queuedTracks.items);
+    forceUpdate();
   };
 
   return (

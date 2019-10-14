@@ -10,7 +10,7 @@ import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IntegrationDownshift from './SearchList';
 
-const TopBar = (queuedTracks) => {
+const TopBar = ({ queuedTracks, forceUpdate }) => {
   const classes = useStyles();
   return(
   <AppBar position="fixed">
@@ -25,7 +25,7 @@ const TopBar = (queuedTracks) => {
                 <div className={classes.searchIcon}>
                   <SearchIcon />
                 </div>
-                <IntegrationDownshift queuedTracks={ queuedTracks }/>
+                <IntegrationDownshift queuedTracks={ queuedTracks }  forceUpdate={ forceUpdate } />
               </div>
 
               <IconButton edge="end" aria-label="account of current user" color="inherit">
