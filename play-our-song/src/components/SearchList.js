@@ -7,16 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 
-// const suggestions = [
-//   { label: "Light It Up (feat. Nyla & Fuse ODG) (Remix)" },
-//   { label: "Work from Home" },
-//   { label: "I Took A Pill In Ibiza (Seeb Remix)" },
-//   { label: "This Girl (Kungs Vs. Cookin' On 3 Burners)" },
-//   { label: "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")"},
-//   { label: "This Is What You Came For"},
-// ];
-
-function renderInput(inputProps) {
+const renderInput = (inputProps) => {
   const { InputProps, classes, ref, ...other } = inputProps;
 
   return (
@@ -42,7 +33,7 @@ renderInput.propTypes = {
   InputProps: PropTypes.object,
 };
 
-function renderSuggestion(suggestionProps) {
+const renderSuggestion = (suggestionProps) => {
   const { suggestion, index, itemProps, highlightedIndex, selectedItem } = suggestionProps;
   const isHighlighted = highlightedIndex === index;
   const isSelected = (selectedItem ? selectedItem.label : '').indexOf(suggestion.label) > -1;
@@ -107,23 +98,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function IntegrationDownshift(queuedTracks) {
+const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
   const classes = useStyles();
   const [suggestions, setSuggestions] = useState([]);
   const [allTracks, setAllTracks] = useState([]);
-  useEffect(() => {
-    const fetchSuggestions = async () => {
-      const response = await fetch('./data/tracks.json');
-      const json = await response.json();
-      setAllTracks(Object.values(json));
-      setSuggestions(Object.values(json).map(track => {return {
-        id: track.id,
-        label: track.title,
-      }}));
-    };
-    fetchSuggestions();
-  }, []);
+
+  // TODO: Utilize our api to get suggestions.
+  const fetchSuggestions = async () => {
+    const response = await fetch('./data/tracks.json');
+    const json = await response.json();
+    setAllTracks(Object.values(json));
+    setSuggestions(Object.values(json).map(track => {return {
+      id: track.id,
+      label: track.title,
+    }}));
+  };
+
   const getSuggestions = (value, { showEmpty = false } = {}) => {
+    fetchSuggestions();
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
@@ -140,6 +132,7 @@ export default function IntegrationDownshift(queuedTracks) {
           return keep;
         });
   };
+
   const getTrack = (trackId) =>
     allTracks.find((track) => track.id === trackId);
 
@@ -147,10 +140,11 @@ export default function IntegrationDownshift(queuedTracks) {
     if (!selectedItem) {
       return;
     }
-    console.log('Id of selected item is', selectedItem.id);
-    const trackToBeAdded = getTrack(selectedItem.id);
-    console.log('TRACK_TO_BE_ADDED', trackToBeAdded);
+    queuedTracks.items.push(getTrack(selectedItem.id));
+    queuedTracks.setItems(queuedTracks.items);
+    forceUpdate();
   };
+
   return (
     <div className={classes.root}>
       <Downshift id="downshift-options" onChange={addToQueue} itemToString={item => item ? item.label : ''}>
@@ -209,3 +203,4 @@ export default function IntegrationDownshift(queuedTracks) {
     </div>
   );
 }
+export default IntegrationDownshift;

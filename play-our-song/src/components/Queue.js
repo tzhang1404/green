@@ -8,7 +8,7 @@ const Queue = ({ tracks }) => {
   const classes = useStyles();
     return(
     <List className={classes.queue}>
-      { tracks.map(track => <QueueItem track={ track } />) }
+      { tracks.map(track => <QueueItem track={ track } key={ track.id } />) }
     </List>
   );
 };

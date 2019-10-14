@@ -62,26 +62,38 @@ export const useStyles = makeStyles(theme => ({
   },
 }));
 
+const useForceUpdate = () => {
+  const [value, set] = useState(true);
+  return () => {
+    console.log('Force updating...')
+    set(value=> !value);
+  };
+}
+
 const App = () =>  {
   const classes = useStyles();
 
-  const [allTracks, setAllTracks] = useState({});
+  // const [allTracks, setAllTracks] = useState({});
   const [queuedTracks, setQueuedTracks] = useState([]);
+  const forceUpdate = useForceUpdate();
 
+  // useEffect(() => {
+  //   const fetchTracks = async () => {
+  //     const response = await fetch('./data/tracks.json');
+  //     const json = await response.json();
+  //     // setAllTracks(json);
+  //   };
+  //   fetchTracks();
+  // }, []);
   useEffect(() => {
-    const fetchTracks = async () => {
-      const response = await fetch('./data/tracks.json');
-      const json = await response.json();
-      setAllTracks(json);
-      setQueuedTracks(Object.values(json));
-    };
-    fetchTracks();
+    console.log('CALLED')
+    setQueuedTracks(queuedTracks);
   }, []);
 
 
   return(
   <React.Fragment>
-  <TopBar queuedTracks={ queuedTracks } className={classes.grow} />
+  <TopBar queuedTracks={ {items: queuedTracks, setItems: setQueuedTracks } } forceUpdate={ forceUpdate } className={classes.grow } />
 
   <Container maxWidth="md" >
     <Queue tracks={ queuedTracks } />
