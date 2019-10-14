@@ -45,12 +45,11 @@ renderInput.propTypes = {
 function renderSuggestion(suggestionProps) {
   const { suggestion, index, itemProps, highlightedIndex, selectedItem } = suggestionProps;
   const isHighlighted = highlightedIndex === index;
-  const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1;
-
+  const isSelected = (selectedItem ? selectedItem.label : '').indexOf(suggestion.label) > -1;
   return (
     <MenuItem
       {...itemProps}
-      key={suggestion.label}
+      key={suggestion.id}
       selected={isHighlighted}
       component="div"
       style={{
@@ -110,17 +109,17 @@ const useStyles = makeStyles(theme => ({
 
 export default function IntegrationDownshift(queuedTracks) {
   const classes = useStyles();
-  const addToQueue = (selectedItem) => {
-    console.log('Item selected is', selectedItem);
-  };
-
   const [suggestions, setSuggestions] = useState([]);
+  const [allTracks, setAllTracks] = useState([]);
   useEffect(() => {
     const fetchSuggestions = async () => {
       const response = await fetch('./data/tracks.json');
       const json = await response.json();
-      setSuggestions(Object.values(json).map(track => {return {label: track.title}}));
-      console.log(suggestions);
+      setAllTracks(Object.values(json));
+      setSuggestions(Object.values(json).map(track => {return {
+        id: track.id,
+        label: track.title,
+      }}));
     };
     fetchSuggestions();
   }, []);
@@ -128,7 +127,6 @@ export default function IntegrationDownshift(queuedTracks) {
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
-    console.log('suggestions:', suggestions);
 
     return inputLength === 0 && !showEmpty
       ? []
@@ -141,10 +139,21 @@ export default function IntegrationDownshift(queuedTracks) {
           }
           return keep;
         });
-  }
+  };
+  const getTrack = (trackId) =>
+    allTracks.find((track) => track.id === trackId);
+
+  const addToQueue = (selectedItem) => {
+    if (!selectedItem) {
+      return;
+    }
+    console.log('Id of selected item is', selectedItem.id);
+    const trackToBeAdded = getTrack(selectedItem.id);
+    console.log('TRACK_TO_BE_ADDED', trackToBeAdded);
+  };
   return (
     <div className={classes.root}>
-      <Downshift id="downshift-options" onChange={addToQueue}>
+      <Downshift id="downshift-options" onChange={addToQueue} itemToString={item => item ? item.label : ''}>
         {({
           clearSelection,
           getInputProps,
@@ -182,12 +191,10 @@ export default function IntegrationDownshift(queuedTracks) {
                 {isOpen ? (
                   <Paper className={classes.paper} square>
                     {getSuggestions(inputValue, { showEmpty: true }).map((suggestion, index) => {
-                      console.log('SUGGESTION', suggestion);
-                      console.log('INDEX', index);
                       return renderSuggestion({
                         suggestion,
                         index,
-                        itemProps: getItemProps({ item: suggestion.label }),
+                        itemProps: getItemProps({ item: suggestion }),
                         highlightedIndex,
                         selectedItem,
                       })},
