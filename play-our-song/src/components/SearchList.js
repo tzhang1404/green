@@ -103,20 +103,19 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [allTracks, setAllTracks] = useState([]);
 
-  useEffect(() => {
-    const fetchSuggestions = async () => {
-      const response = await fetch('./data/tracks.json');
-      const json = await response.json();
-      setAllTracks(Object.values(json));
-      setSuggestions(Object.values(json).map(track => {return {
-        id: track.id,
-        label: track.title,
-      }}));
-    };
-    fetchSuggestions();
-  }, []);
+  // TODO: Utilize our api to get suggestions.
+  const fetchSuggestions = async () => {
+    const response = await fetch('./data/tracks.json');
+    const json = await response.json();
+    setAllTracks(Object.values(json));
+    setSuggestions(Object.values(json).map(track => {return {
+      id: track.id,
+      label: track.title,
+    }}));
+  };
 
   const getSuggestions = (value, { showEmpty = false } = {}) => {
+    fetchSuggestions();
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
