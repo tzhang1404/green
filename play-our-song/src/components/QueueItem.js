@@ -1,6 +1,5 @@
 import React from 'react';
-import {useStyles} from './Style';
-
+import {useStyles} from '../App';
 
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';

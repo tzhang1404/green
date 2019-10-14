@@ -14,7 +14,7 @@ const TopBar = () => {
 
 const classes = useStyles();
 return(
-<AppBar position="static">
+<AppBar position="fixed">
     <Toolbar>
             <IconButton edge="start" color="inherit">
             <MusicNoteIcon fontSize="large"/>
@@ -28,7 +28,7 @@ return(
               </div>
               <IntegrationDownshift />
             </div>
-              
+
             <IconButton edge="end" aria-label="account of current user" color="inherit">
               <AccountCircle fontSize="medium"/>
             </IconButton>

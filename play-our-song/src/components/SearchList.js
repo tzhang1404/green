@@ -102,7 +102,6 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     position: 'absolute',
-    zIndex: 1,
     marginTop: theme.spacing(1),
     left: 0,
     right: 0,
@@ -160,7 +159,7 @@ export default function IntegrationDownshift() {
               {renderInput({
                 fullWidth: true,
                 classes,
-          
+
                 InputLabelProps: getLabelProps({ shrink: true }),
                 InputProps: { onBlur, onChange, onFocus },
                 inputProps,
