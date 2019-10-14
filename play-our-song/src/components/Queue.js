@@ -1,22 +1,19 @@
 import React from 'react';
 import QueueItem from './QueueItem';
 import {useStyles} from '../App';
-//import {useStyles} from './Style';
-
 
 import List from '@material-ui/core/List';
 
-const Queue = ({ tracks}) => {
-const classes = useStyles();
-  return(
-  <List className={classes.queue}>
-    { tracks.map(track => <QueueItem track={ track } />) }
-  </List>
-  )
+const Queue = ({ tracks }) => {
+  const classes = useStyles();
+    return(
+    <List className={classes.queue}>
+      { tracks.map(track => <QueueItem track={ track } />) }
+    </List>
+  );
 };
 
 
 
 
 export default Queue;
-

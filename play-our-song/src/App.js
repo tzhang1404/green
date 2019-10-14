@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Queue from './components/Queue';
 import TopBar from './components/TopBar';
 import { fade,makeStyles } from '@material-ui/core/styles';
-//import {useStyles} from './components/Style';
-
 import Container from '@material-ui/core/Container';
 
 
@@ -56,8 +54,8 @@ export const useStyles = makeStyles(theme => ({
   queue: {
     margin: theme.spacing(5, 0, 0, 0),
     width: '100%',
-
     backgroundColor: theme.palette.background.paper,
+    position: 'fixed',
   },
   inline: {
     display: 'inline',
@@ -67,13 +65,15 @@ export const useStyles = makeStyles(theme => ({
 const App = () =>  {
   const classes = useStyles();
 
-  const [data, setData] = useState({});
-  const tracks = Object.values(data);
+  const [allTracks, setAllTracks] = useState({});
+  const [queuedTracks, setQueuedTracks] = useState([]);
+
   useEffect(() => {
     const fetchTracks = async () => {
       const response = await fetch('./data/tracks.json');
       const json = await response.json();
-      setData(json);
+      setAllTracks(json);
+      setQueuedTracks(Object.values(json));
     };
     fetchTracks();
   }, []);
@@ -81,13 +81,13 @@ const App = () =>  {
 
   return(
   <React.Fragment>
-  <TopBar className={classes.grow} />
+  <TopBar queuedTracks={ queuedTracks } className={classes.grow} />
 
   <Container maxWidth="md" >
-    <Queue tracks={ tracks } />
+    <Queue tracks={ queuedTracks } />
   </Container>
   </React.Fragment>
-  
+
 );}
 
 
