@@ -81,7 +81,7 @@ const App = () =>  {
 
   return(
   <React.Fragment>
-  <TopBar className={classes.grow} />
+  <TopBar queuedTracks={ queuedTracks } className={classes.grow} />
 
   <Container maxWidth="md" >
     <Queue tracks={ queuedTracks } />

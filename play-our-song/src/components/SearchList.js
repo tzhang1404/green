@@ -127,11 +127,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function IntegrationDownshift() {
+export default function IntegrationDownshift(queuedTracks) {
   const classes = useStyles();
+  const addToQueue = (selectedItem) => {
+    console.log('Item selected is', selectedItem);
+  };
   return (
     <div className={classes.root}>
-      <Downshift id="downshift-options">
+      <Downshift id="downshift-options" onChange={addToQueue}>
         {({
           clearSelection,
           getInputProps,
