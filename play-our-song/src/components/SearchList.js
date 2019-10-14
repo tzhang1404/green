@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import deburr from 'lodash/deburr';
 import Downshift from 'downshift';
@@ -7,14 +7,14 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const suggestions = [
-  { label: "Light It Up (feat. Nyla & Fuse ODG) (Remix)" },
-  { label: "Work from Home" },
-  { label: "I Took A Pill In Ibiza (Seeb Remix)" },
-  { label: "This Girl (Kungs Vs. Cookin' On 3 Burners)" },
-  { label: "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")"},
-  { label: "This Is What You Came For"},
-];
+// const suggestions = [
+//   { label: "Light It Up (feat. Nyla & Fuse ODG) (Remix)" },
+//   { label: "Work from Home" },
+//   { label: "I Took A Pill In Ibiza (Seeb Remix)" },
+//   { label: "This Girl (Kungs Vs. Cookin' On 3 Burners)" },
+//   { label: "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")"},
+//   { label: "This Is What You Came For"},
+// ];
 
 function renderInput(inputProps) {
   const { InputProps, classes, ref, ...other } = inputProps;
@@ -72,25 +72,6 @@ renderSuggestion.propTypes = {
   }).isRequired,
 };
 
-function getSuggestions(value, { showEmpty = false } = {}) {
-  const inputValue = deburr(value.trim()).toLowerCase();
-  const inputLength = inputValue.length;
-  let count = 0;
-
-  return inputLength === 0 && !showEmpty
-    ? []
-    : suggestions.filter(suggestion => {
-        const keep =
-          count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
-
-        if (keep) {
-          count += 1;
-        }
-
-        return keep;
-      });
-}
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -132,6 +113,35 @@ export default function IntegrationDownshift(queuedTracks) {
   const addToQueue = (selectedItem) => {
     console.log('Item selected is', selectedItem);
   };
+
+  const [suggestions, setSuggestions] = useState([]);
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      const response = await fetch('./data/tracks.json');
+      const json = await response.json();
+      setSuggestions(Object.values(json).map(track => {return {label: track.title}}));
+      console.log(suggestions);
+    };
+    fetchSuggestions();
+  }, []);
+  const getSuggestions = (value, { showEmpty = false } = {}) => {
+    const inputValue = deburr(value.trim()).toLowerCase();
+    const inputLength = inputValue.length;
+    let count = 0;
+    console.log('suggestions:', suggestions);
+
+    return inputLength === 0 && !showEmpty
+      ? []
+      : suggestions.filter(suggestion => {
+          const keep = count < 5
+            && suggestion.label.slice(0, inputLength)
+                                .toLowerCase() === inputValue;
+          if (keep) {
+            count += 1;
+          }
+          return keep;
+        });
+  }
   return (
     <div className={classes.root}>
       <Downshift id="downshift-options" onChange={addToQueue}>
@@ -171,14 +181,16 @@ export default function IntegrationDownshift(queuedTracks) {
               <div {...getMenuProps()}>
                 {isOpen ? (
                   <Paper className={classes.paper} square>
-                    {getSuggestions(inputValue, { showEmpty: true }).map((suggestion, index) =>
-                      renderSuggestion({
+                    {getSuggestions(inputValue, { showEmpty: true }).map((suggestion, index) => {
+                      console.log('SUGGESTION', suggestion);
+                      console.log('INDEX', index);
+                      return renderSuggestion({
                         suggestion,
                         index,
                         itemProps: getItemProps({ item: suggestion.label }),
                         highlightedIndex,
                         selectedItem,
-                      }),
+                      })},
                     )}
                   </Paper>
                 ) : null}
