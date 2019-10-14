@@ -16,7 +16,7 @@ const TopBar = (queuedTracks) => {
   <AppBar position="fixed">
       <Toolbar>
               <IconButton edge="start" color="inherit">
-              <MusicNoteIcon fontSize="large"/>
+              <MusicNoteIcon fontSize="large" />
               </IconButton>
               <Typography className={classes.title} variant="h6" noWrap>
                 PlayOurSong
@@ -29,7 +29,7 @@ const TopBar = (queuedTracks) => {
               </div>
 
               <IconButton edge="end" aria-label="account of current user" color="inherit">
-                <AccountCircle fontSize="medium"/>
+                <AccountCircle fontSize="small" />
               </IconButton>
       </Toolbar>
     </AppBar>
