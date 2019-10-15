@@ -17,7 +17,7 @@ const giveThumbUp = () =>{
 const QueueItem = ({ track }) => (
   <ListItem>
   <ListItemText
-          primary={track.title}
+          primary={track.name}
           secondary={
             <React.Fragment>
               <Typography
@@ -25,9 +25,9 @@ const QueueItem = ({ track }) => (
                 variant="body2"
                 color="textPrimary"
               >
-              {track.artist}   •
+              {track.artists[0].name}   •
               </Typography>
-              •   {track.album}
+              •   {track.album.name}
             </React.Fragment>
           }
         />

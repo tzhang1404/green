@@ -7,6 +7,19 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 
+//----------Spotify API------------------
+var client_id = '690c30f6add5454c8a5660405b6b228c'; // Your client id
+var client_secret = '9b9451343b7e425c95f0996e6f35f031'; // Your secret
+var redirect_uri = 'http://www.google.com'; // Your redirect uri
+var SpotifyWebApi = require('spotify-web-api-node');
+// credentials are optional
+var spotifyApi = new SpotifyWebApi({
+  clientId: client_id,
+  clientSecret: client_secret, 
+  redirectUri: 'http://www.example.com/callback'
+});
+spotifyApi.setAccessToken('BQD_LrnVmPpAqcUWESTBkIADmIaZdHhbpYhSAOgaOmbcOPVHPfO4jwoJFHEHlcC46sn5Xi_7HKfmQVUjhzn5B09D-fu9vDuS1Fbeio3adoK-0dvR9eiyF3hSb02Wxq65Mnc-9zh0lpdPBnhIWDGHErkk7CP9VcyGwA');
+
 const renderInput = (inputProps) => {
   const { InputProps, classes, ref, ...other } = inputProps;
 
@@ -116,19 +129,34 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
     }}));
   };
 
+  const fetchAPISuggestions = (input) => {
+    console.log(input);
+    spotifyApi.searchTracks('track:' + input)
+      .then(function(data) {
+        const resp = data.body.tracks.items;
+        console.log("called API");
+        setAllTracks(Object.values(resp));
+        setSuggestions(Object.values(resp).map(track => {return {
+          id: track.id,
+          label: track.name,
+        }}));
+      }, function(err) {
+        console.error(err);
+      });
+  }
+
   const getSuggestions = (value, { showEmpty = false } = {}) => {
     console.log('getSuggestions called');
-    fetchSuggestions();
+    
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
-
+    console.log("input", inputValue);
+    fetchAPISuggestions(inputValue);
     const _filteredSuggestions = inputLength === 0 && !showEmpty
       ? []
       : suggestions.filter(suggestion => {
-          const keep = count < 5
-            && suggestion.label.slice(0, inputLength)
-                                .toLowerCase() === inputValue;
+          const keep = count < 10;
           if (keep) {
             count += 1;
           }
@@ -137,13 +165,23 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
     setFilteredSuggestions(_filteredSuggestions);
   };
 
-  const getTrack = (trackId) =>
-    allTracks.find((track) => track.id === trackId);
+  const getTrack = (trackId) => {
+    for(var track in allTracks){
+      console.log("allT", allTracks[track].name);
+      console.log("ID", trackId);
+      if(allTracks[track].id == trackId){
+        
+        console.log("found", trackId);
+        return allTracks[track];
+      }
+    }
+  }
 
   const addToQueue = (selectedItem) => {
     if (!selectedItem) {
       return;
     }
+    console.log(174, getTrack(selectedItem.id));
     queuedTracks.items.push(getTrack(selectedItem.id));
     queuedTracks.setItems(queuedTracks.items);
     forceUpdate();
@@ -153,8 +191,8 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
     <div className={classes.root}>
       <Downshift
         id="downshift-options"
-        onChange={addToQueue}
         onInputValueChange={getSuggestions}
+        onChange={addToQueue}
         itemToString={item => item ? item.label : ''}>
         {({
           clearSelection,
