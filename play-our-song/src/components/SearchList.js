@@ -101,10 +101,12 @@ const useStyles = makeStyles(theme => ({
 const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
   const classes = useStyles();
   const [suggestions, setSuggestions] = useState([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [allTracks, setAllTracks] = useState([]);
 
   // TODO: Utilize our api to get suggestions.
   const fetchSuggestions = async () => {
+    console.log('fetchSuggestions called');
     const response = await fetch('./data/tracks.json');
     const json = await response.json();
     setAllTracks(Object.values(json));
@@ -115,12 +117,13 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
   };
 
   const getSuggestions = (value, { showEmpty = false } = {}) => {
+    console.log('getSuggestions called');
     fetchSuggestions();
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
 
-    return inputLength === 0 && !showEmpty
+    const _filteredSuggestions = inputLength === 0 && !showEmpty
       ? []
       : suggestions.filter(suggestion => {
           const keep = count < 5
@@ -131,6 +134,7 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
           }
           return keep;
         });
+    setFilteredSuggestions(_filteredSuggestions);
   };
 
   const getTrack = (trackId) =>
@@ -147,7 +151,11 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
 
   return (
     <div className={classes.root}>
-      <Downshift id="downshift-options" onChange={addToQueue} itemToString={item => item ? item.label : ''}>
+      <Downshift
+        id="downshift-options"
+        onChange={addToQueue}
+        onInputValueChange={getSuggestions}
+        itemToString={item => item ? item.label : ''}>
         {({
           clearSelection,
           getInputProps,
@@ -180,11 +188,10 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
                 InputProps: { onBlur, onChange, onFocus },
                 inputProps,
               })}
-
               <div {...getMenuProps()}>
                 {isOpen ? (
                   <Paper className={classes.paper} square>
-                    {getSuggestions(inputValue, { showEmpty: true }).map((suggestion, index) => {
+                    {filteredSuggestions.map((suggestion, index) => {
                       return renderSuggestion({
                         suggestion,
                         index,
