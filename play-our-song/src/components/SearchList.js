@@ -15,7 +15,7 @@ var SpotifyWebApi = require('spotify-web-api-node');
 // credentials are optional
 var spotifyApi = new SpotifyWebApi({
   clientId: client_id,
-  clientSecret: client_secret, 
+  clientSecret: client_secret,
   redirectUri: 'http://www.example.com/callback'
 });
 spotifyApi.setAccessToken('BQD_LrnVmPpAqcUWESTBkIADmIaZdHhbpYhSAOgaOmbcOPVHPfO4jwoJFHEHlcC46sn5Xi_7HKfmQVUjhzn5B09D-fu9vDuS1Fbeio3adoK-0dvR9eiyF3hSb02Wxq65Mnc-9zh0lpdPBnhIWDGHErkk7CP9VcyGwA');
@@ -117,18 +117,6 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [allTracks, setAllTracks] = useState([]);
 
-  // TODO: Utilize our api to get suggestions.
-  const fetchSuggestions = async () => {
-    console.log('fetchSuggestions called');
-    const response = await fetch('./data/tracks.json');
-    const json = await response.json();
-    setAllTracks(Object.values(json));
-    setSuggestions(Object.values(json).map(track => {return {
-      id: track.id,
-      label: track.title,
-    }}));
-  };
-
   const fetchAPISuggestions = (input) => {
     console.log(input);
     spotifyApi.searchTracks('track:' + input)
@@ -147,7 +135,7 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
 
   const getSuggestions = (value, { showEmpty = false } = {}) => {
     console.log('getSuggestions called');
-    
+
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
@@ -170,7 +158,7 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
       console.log("allT", allTracks[track].name);
       console.log("ID", trackId);
       if(allTracks[track].id == trackId){
-        
+
         console.log("found", trackId);
         return allTracks[track];
       }
