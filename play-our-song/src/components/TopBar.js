@@ -18,7 +18,7 @@ const TopBar = ({ queuedTracks, forceUpdate }) => {
               <IconButton edge="start" color="inherit">
               <MusicNoteIcon fontSize="large" />
               </IconButton>
-              <Typography className={classes.title} variant="h6" noWrap>
+              <Typography className={classes.title} variant="h6">
                 PlayOurSong
               </Typography>
               <div className={classes.search}>
