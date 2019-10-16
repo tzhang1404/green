@@ -7,6 +7,11 @@ import Container from '@material-ui/core/Container';
 
 
 export const useStyles = makeStyles(theme => ({
+  
+  button: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.background.paper,
+  },
   grow: {
     flexGrow: 1,
   },
@@ -51,10 +56,10 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   queue: {
-    margin: theme.spacing(5, 0, 0, 0),
+    margin: theme.spacing(10, 0, 0, 0),
     width: '100%',
     backgroundColor: theme.palette.background.paper,
-    position: 'fixed',
+    position: 'relative',
   },
   inline: {
     display: 'inline',

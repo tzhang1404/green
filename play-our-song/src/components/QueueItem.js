@@ -14,7 +14,11 @@ const giveThumbUp = () =>{
 
 }
 
-const QueueItem = ({ track }) => (
+const QueueItem = ({ track }) => {
+  const classes = useStyles();
+
+  return(
+
   <ListItem>
   <ListItemText
           primary={track.name}
@@ -32,12 +36,12 @@ const QueueItem = ({ track }) => (
           }
         />
   <ListItemSecondaryAction>
-      <IconButton aria-label="Give a thumb up" onClick={() => giveThumbUp()}>
+      <IconButton  className={classes.button} aria-label="Give a thumb up" onClick={() => giveThumbUp()}>
         <ThumbUpIcon />
       </IconButton>
     </ListItemSecondaryAction>
-  </ListItem>
-);
+  </ListItem>)
+};
 
 
 export default QueueItem;
