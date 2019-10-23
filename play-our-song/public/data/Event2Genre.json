@@ -1,0 +1,24 @@
+{
+  "party": [
+    "party",
+    "house",
+    "student",
+    "latin",
+    "chill",
+    "electronic/dance"
+  ],
+  "study": [
+    "classical",
+    "student",
+    "concentration",
+    "chill"
+  ],
+  "holiday": [
+    "christmas"
+  ],
+  "sport": [
+    "fitness",
+    "wellness",
+    "electronic/dance"
+  ]
+}
