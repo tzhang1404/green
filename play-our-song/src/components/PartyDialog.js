@@ -14,15 +14,11 @@ import CheckboxesGroup from "./CheckboxesGroup";
 
 const PartyDialog =() =>{
 
-	const {
-    	["open"]: [open, setOpen],
-	} = React.useContext(StoreContext)
-	
-
+	const Object = React.useContext(StoreContext);
 	
 	return (
     <div>      
-      <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">
+      <Dialog open={Object.open} onClose={() => Object["open"].setOpen(false)} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Generate your playlist in one step</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -32,7 +28,7 @@ const PartyDialog =() =>{
           <CheckboxesGroup/>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)} color="primary">
+          <Button onClick={() => Object["open"].setOpen(false)} color="primary">
             Generate
           </Button>
         </DialogActions>
