@@ -8,20 +8,20 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const CheckboxesGroup =() =>{
-	 const classes = useStyles();
-  const [state, setState] = React.useState({
-    gilad: true,
-    jason: false,
-    antoine: false,
-  });
+	const classes = useStyles();
+	const [state, setState] = React.useState({
+    	gilad: true,
+    	jason: false,
+    	antoine: false,
+	});
 
-  const handleChange = name => event => {
-    setState({ ...state, [name]: event.target.checked });
-  };
 
-  const { Birthday, Halloween, Christmas } = state;
-  const error = [Birthday, Halloween, Christmas].filter(v => v).length !== 2;
 
+	const handleChange = name => event => {
+		setState({ ...state, [name]: event.target.checked });
+	};
+
+	const { Birthday, Halloween, Christmas } = state;
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>

@@ -15,48 +15,39 @@ import { StoreContext } from '../utils/store';
 
 const TopBar = ({ queuedTracks, forceUpdate }) => {
   const classes = useStyles();
-
-  const {
-    ["open"]: [open, setOpen],
-  } = React.useContext(StoreContext)
-    
-    {/*}
-    const handleClickOpen = () => {
-        setOpen(true);
-  };
-    const handleClose = () => {
-        setOpen(false);
-  };
-*/}
+  const ctx = React.useContext(StoreContext);
 
   return(
-  <AppBar position="fixed">
-      <Toolbar>
-              <IconButton edge="start" color="inherit">
-              <MusicNoteIcon fontSize="large" />
-              </IconButton>
-              <Typography className={classes.title} variant="h6">
-                PlayOurSong
-              </Typography>
-              
-              <Button variant="outlined" color="secondary" onClick={() => setOpen(true)}>
-              Open form dialog
-              </Button>
+    <div className={classes.root}>
+      <AppBar position="static" >
+        <Toolbar>
+                <IconButton edge="start" color="inherit">
+                <MusicNoteIcon fontSize="large" />
+                </IconButton>
+                <Typography className={classes.title} variant="h6">
+                  PlayOurSong
+                </Typography>
+                <div className={classes.grow} />
+                <Button variant="contained" color="primary" onClick={() => ctx.open[1](true)}>
+                {ctx.playlistTitle[0]}
+                </Button>
 
-              {/*
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
+                {/*
+                <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                    <SearchIcon />
+                  </div>
+                  <IntegrationDownshift queuedTracks={ queuedTracks }  forceUpdate={ forceUpdate } />
                 </div>
-                <IntegrationDownshift queuedTracks={ queuedTracks }  forceUpdate={ forceUpdate } />
-              </div>
-              */}
+                */}
+                <div className={classes.grow} />
 
-              <IconButton edge="end" aria-label="account of current user" color="inherit">
-                <AccountCircle fontSize="small" />
-              </IconButton>
-      </Toolbar>
-    </AppBar>
+                <IconButton edge="end" aria-label="account of current user" color="inherit">
+                  <AccountCircle fontSize="large" />
+                </IconButton>
+        </Toolbar>
+      </AppBar>
+    </div>
   )
 };
 

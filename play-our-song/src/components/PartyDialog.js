@@ -8,27 +8,37 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { StoreContext } from '../utils/store';
-import PlaylistTitle from './PlaylistTitle';
 import CheckboxesGroup from "./CheckboxesGroup";
 
 
 const PartyDialog =() =>{
 
-	const Object = React.useContext(StoreContext);
+	const ctx = React.useContext(StoreContext);
+	console.log(ctx);
+
+	const handleChange = () => event => {
+    ctx.playlistTitle[1](event.target.value);
+	}
 	
 	return (
     <div>      
-      <Dialog open={Object.open} onClose={() => Object["open"].setOpen(false)} aria-labelledby="form-dialog-title">
+      <Dialog open={ctx.open[0]} onClose={() => ctx.open[1](false)} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Generate your playlist in one step</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To generate your playlist, please enter the title of your playlist and the type of your event.
           </DialogContentText>
-          <PlaylistTitle/>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Playlist Title"
+        	onChange={handleChange()}            
+            fullWidth
+          />
           <CheckboxesGroup/>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => Object["open"].setOpen(false)} color="primary">
+          <Button variant="contained" color="primary"  onClick={() => ctx.open[1](false)} color="primary">
             Generate
           </Button>
         </DialogActions>

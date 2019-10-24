@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 
 export const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
+    flexGrow: 1,
   },
   formControl: {
     marginTop: theme.spacing(3),
