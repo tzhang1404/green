@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import Queue from './components/Queue';
 import TopBar from './components/TopBar';
+import PartyDialog from './components/PartyDialog';
 import { fade,makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 
 
+
+
 export const useStyles = makeStyles(theme => ({
-  
+  root: {
+    display: 'flex',
+  },
+  formControl: {
+    marginTop: theme.spacing(3),
+  },
   button: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.background.paper,
@@ -74,8 +82,13 @@ const useForceUpdate = () => {
   };
 }
 
+
+
 const App = () =>  {
   const classes = useStyles();
+
+  
+
 
   // const [allTracks, setAllTracks] = useState({});
   const [queuedTracks, setQueuedTracks] = useState([]);
@@ -95,6 +108,7 @@ const App = () =>  {
   }, []);
 
 
+
   return(
   <React.Fragment>
   <TopBar queuedTracks={ {items: queuedTracks, setItems: setQueuedTracks } } forceUpdate={ forceUpdate } className={classes.grow } />
@@ -102,6 +116,7 @@ const App = () =>  {
   <Container maxWidth="md" >
     <Queue tracks={ queuedTracks } />
   </Container>
+  <PartyDialog />
   </React.Fragment>
 
 );}
