@@ -14,7 +14,6 @@ const EventCheckboxesGroup =() =>{
 	const classes = useStyles();
 	const ctx = React.useContext(reactContext);
 
-	// TODO: Load all event 2 genre items here.
 	useEffect(() => {
 		const fetchEventToGenresMapping = async () => {
 			const response = await fetch('./data/Event2Genre.json');
@@ -70,45 +69,6 @@ const EventCheckboxesGroup =() =>{
 			</FormControl>
 		</div>
 	);
-
-
-	// const [state, setState] = React.useState({
-  //   	gilad: true,
-  //   	jason: false,
-  //   	antoine: false,
-	// });
-
-
-
-
-	// const handleChange = name => event => {
-	// 	setState({ ...state, [name]: event.target.checked });
-	// };
-
-	// const { Birthday, Halloween, Christmas } = state;
-  // return (
-  //   <div className={classes.root}>
-  //     <FormControl component="fieldset" className={classes.formControl}>
-  //       <FormLabel component="legend">Type of event</FormLabel>
-  //       <FormGroup>
-  //         <FormControlLabel
-  //           control={<Checkbox checked={Birthday} onChange={handleChange('Birthday')} value="Birthday" />}
-  //           label="Birthday"
-  //         />
-  //         <FormControlLabel
-  //           control={<Checkbox checked={Halloween} onChange={handleChange('Halloween')} value="Halloween" />}
-  //           label="Halloween"
-  //         />
-  //         <FormControlLabel
-  //           control={
-  //             <Checkbox checked={Christmas} onChange={handleChange('Christmas')} value="Christmas" />
-  //           }
-  //           label="Christmas"
-  //         />
-  //       </FormGroup>
-  //     </FormControl>
-  //   </div>
-  // );
 }
 
 export default EventCheckboxesGroup;
