@@ -20,5 +20,10 @@
     "fitness",
     "wellness",
     "electronic/dance"
+  ],
+  "sleep": [
+    "sleep",
+    "classical",
+    "concentration"
   ]
 }
