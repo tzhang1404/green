@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import deburr from 'lodash/deburr';
 import Downshift from 'downshift';
@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 //----------Spotify API------------------
 var client_id = '690c30f6add5454c8a5660405b6b228c'; // Your client id
 var client_secret = '9b9451343b7e425c95f0996e6f35f031'; // Your secret
-var redirect_uri = 'http://www.google.com'; // Your redirect uri
+// var redirect_uri = 'http://www.google.com'; // Your redirect uri
 var SpotifyWebApi = require('spotify-web-api-node');
 // credentials are optional
 var spotifyApi = new SpotifyWebApi({
@@ -157,7 +157,7 @@ const IntegrationDownshift = ({ tracks, forceUpdate }) => {
     for(var track in allTracks){
       console.log("allT", allTracks[track].name);
       console.log("ID", trackId);
-      if(allTracks[track].id == trackId){
+      if(allTracks[track].id === trackId){
 
         console.log("found", trackId);
         return allTracks[track];
@@ -165,7 +165,7 @@ const IntegrationDownshift = ({ tracks, forceUpdate }) => {
     }
   }
 
-  const addToQueue = (selectedItem) => {
+  const addToPlaylist = (selectedItem) => {
     if (!selectedItem) {
       return;
     }
@@ -180,7 +180,7 @@ const IntegrationDownshift = ({ tracks, forceUpdate }) => {
       <Downshift
         id="downshift-options"
         onInputValueChange={getSuggestions}
-        onChange={addToQueue}
+        onChange={addToPlaylist}
         itemToString={item => item ? item.label : ''}>
         {({
           clearSelection,

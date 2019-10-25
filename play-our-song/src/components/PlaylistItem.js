@@ -2,7 +2,6 @@ import React from 'react';
 import {useStyles} from '../App';
 
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/Avatar';
@@ -14,7 +13,7 @@ const giveThumbUp = () =>{
 
 }
 
-const QueueItem = ({ track }) => {
+const PlaylistItem = ({ track }) => {
   const classes = useStyles();
 
   return(
@@ -44,4 +43,4 @@ const QueueItem = ({ track }) => {
 };
 
 
-export default QueueItem;
+export default PlaylistItem;

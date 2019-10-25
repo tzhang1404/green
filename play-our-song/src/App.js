@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Queue from './components/Queue';
+import Playlist from './components/Playlist';
 import TopBar from './components/TopBar';
-import PartyDialog from './components/PartyDialog';
+import EventPlaylistConfig from './components/EventPlaylistConfig';
 import { fade,makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
@@ -80,7 +80,7 @@ export const useStyles = makeStyles(theme => ({
       maxWidth: 800,
     },
   },
-  queue: {
+  playList: {
     margin: theme.spacing(10, 0, 0, 0),
     width: '100%',
     backgroundColor: theme.palette.background.paper,
@@ -93,6 +93,7 @@ export const useStyles = makeStyles(theme => ({
 
 const useForceUpdate = () => {
   const [value, set] = useState(true);
+  console.log(value);
   return () => {
     console.log('Force updating...')
     set(value=> !value);
@@ -137,9 +138,9 @@ const App = () =>  {
   <React.Fragment>
   <TopBar token={ tokens } className={classes.grow } />
   <Container maxWidth="md" >
-    <Queue tracks={ tracks } />
+    <Playlist tracks={ tracks } />
   </Container>
-  <PartyDialog tracks={ tracks } forceUpdate={ forceUpdate }/>
+  <EventPlaylistConfig tracks={ tracks } forceUpdate={ forceUpdate }/>
   </React.Fragment>
 
 );}

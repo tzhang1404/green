@@ -10,7 +10,7 @@ import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IntegrationDownshift from './SearchList';
 import Button from '@material-ui/core/Button';
-import { StoreContext } from '../utils/store';
+import { reactContext } from '../utils/store';
 
 //-----------------START OF SPOTIFY BACKEND SETUP--------------------
 export const authEndpoint = 'https://accounts.spotify.com/authorize';
@@ -40,7 +40,7 @@ const hash = window.location.hash
 
 const TopBar = ({ token }) => {
   const classes = useStyles();
-  const ctx = React.useContext(StoreContext);
+  const ctx = React.useContext(reactContext);
 
   return(
     <div className={classes.root}>
@@ -65,7 +65,7 @@ const TopBar = ({ token }) => {
                 <IconButton  href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`} edge="end" aria-label="account of current user" color="inherit">
                   <AccountCircle fontSize="small" />
                 </IconButton>
-              )}          
+              )}
         </Toolbar>
       </AppBar>
     </div>
