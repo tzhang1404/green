@@ -104,28 +104,15 @@ const useForceUpdate = () => {
 
 const App = () =>  {
   const classes = useStyles();
-  // const [allTracks, setAllTracks] = useState({});
   const [tracks, setTracks] = useState([]);
   const forceUpdate = useForceUpdate();
   const [tokens, setTokens] = useState();
 
-  // useEffect(() => {
-  //   const fetchTracks = async () => {
-  //     const response = await fetch('./data/tracks.json');
-  //     const json = await response.json();
-  //     // setAllTracks(json);
-  //   };
-  //   fetchTracks();
-  // }, []);
   useEffect(() => {
     // Set token
     let _token = hash.access_token;
     console.log("hello");
     if (_token) {
-      // Set token
-      // this.setState({
-      //   token: _token
-      // });
       setTokens(_token);
       console.log(_token);
     }
