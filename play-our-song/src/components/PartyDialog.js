@@ -31,7 +31,7 @@ const PartyDialog = ({tracks, forceUpdate}) =>{
 		// TODO: @Kylie get spotify recommended tracks
 
 		// TODO: @Timo render the recommended tracks
-		// TODO: @Timo create a new playlist
+		// TODO: @Timo create a new playlist for a user with user_id
 		// TODO: @Timo add tracks to the new playlist
 	};
 
