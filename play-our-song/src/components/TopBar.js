@@ -10,7 +10,35 @@ import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IntegrationDownshift from './SearchList';
 
-const TopBar = ({ queuedTracks, forceUpdate }) => {
+
+
+//-----------------START OF SPOTIFY BACKEND SETUP--------------------
+export const authEndpoint = 'https://accounts.spotify.com/authorize';
+
+const clientId = "690c30f6add5454c8a5660405b6b228c";
+const redirectUri = "http://localhost:3000";
+const scopes = [
+  "user-read-currently-playing",
+  "user-read-playback-state",
+];
+
+// Get the hash of the url
+const hash = window.location.hash
+  .substring(1)
+  .split("&")
+  .reduce(function(initial, item) {
+    if (item) {
+      var parts = item.split("=");
+      initial[parts[0]] = decodeURIComponent(parts[1]);
+    }
+    return initial;
+  }, {});
+
+  window.location.hash = "";
+
+//-----------------END OF SPOTIFY BACKEND SETUP--------------------
+
+const TopBar = ({ token, queuedTracks, forceUpdate }) => {
   const classes = useStyles();
   return(
   <AppBar position="fixed">
@@ -26,11 +54,13 @@ const TopBar = ({ queuedTracks, forceUpdate }) => {
                   <SearchIcon />
                 </div>
                 <IntegrationDownshift queuedTracks={ queuedTracks }  forceUpdate={ forceUpdate } />
-              </div>
-
-              <IconButton edge="end" aria-label="account of current user" color="inherit">
-                <AccountCircle fontSize="small" />
-              </IconButton>
+              </div>    
+              {!token && (
+                <IconButton  href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`} edge="end" aria-label="account of current user" color="inherit">
+                  <AccountCircle fontSize="small" />
+                </IconButton>
+              )}          
+              
       </Toolbar>
     </AppBar>
   )
