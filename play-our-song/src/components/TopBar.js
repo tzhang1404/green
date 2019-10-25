@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import { StoreContext } from '../utils/store';
 
 
-const TopBar = ({ queuedTracks, forceUpdate }) => {
+const TopBar = () => {
   const classes = useStyles();
   const ctx = React.useContext(StoreContext);
 
@@ -31,15 +31,6 @@ const TopBar = ({ queuedTracks, forceUpdate }) => {
                 <Button variant="contained" color="primary" onClick={() => ctx.open[1](true)}>
                 {ctx.playlistTitle[0]}
                 </Button>
-
-                {/*
-                <div className={classes.search}>
-                  <div className={classes.searchIcon}>
-                    <SearchIcon />
-                  </div>
-                  <IntegrationDownshift queuedTracks={ queuedTracks }  forceUpdate={ forceUpdate } />
-                </div>
-                */}
                 <div className={classes.grow} />
 
                 <IconButton edge="end" aria-label="account of current user" color="inherit">

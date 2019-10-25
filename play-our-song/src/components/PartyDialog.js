@@ -11,17 +11,32 @@ import { StoreContext } from '../utils/store';
 import CheckboxesGroup from "./CheckboxesGroup";
 
 
-const PartyDialog =() =>{
+const PartyDialog = ({tracks, forceUpdate}) =>{
 
 	const ctx = React.useContext(StoreContext);
-	console.log(ctx);
+	// console.log(ctx);
 
 	const handleChange = () => event => {
     ctx.playlistTitle[1](event.target.value);
-	}
-	
+	};
+
+	const handleGenerate = () => {
+		console.log('handleGenerate clicked');
+		ctx.open[1](false);
+		// TODO: @Timo get form information
+		const playlistName = '';
+		const eventName = '';
+		const genre = [];
+
+		// TODO: @Kylie get spotify recommended tracks
+
+		// TODO: @Timo render the recommended tracks
+		// TODO: @Timo create a new playlist
+		// TODO: @Timo add tracks to the new playlist
+	};
+
 	return (
-    <div>      
+    <div>
       <Dialog open={ctx.open[0]} onClose={() => ctx.open[1](false)} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Generate your playlist in one step</DialogTitle>
         <DialogContent>
@@ -32,13 +47,13 @@ const PartyDialog =() =>{
             autoFocus
             margin="dense"
             label="Playlist Title"
-        	onChange={handleChange()}            
+        	onChange={handleChange()}
             fullWidth
           />
           <CheckboxesGroup/>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" color="primary"  onClick={() => ctx.open[1](false)} color="primary">
+          <Button variant="contained" color="primary"  onClick={() => handleGenerate()} color="primary">
             Generate
           </Button>
         </DialogActions>

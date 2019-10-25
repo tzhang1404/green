@@ -87,11 +87,8 @@ const useForceUpdate = () => {
 const App = () =>  {
   const classes = useStyles();
 
-  
-
-
   // const [allTracks, setAllTracks] = useState({});
-  const [queuedTracks, setQueuedTracks] = useState([]);
+  const [tracks, setTracks] = useState([]);
   const forceUpdate = useForceUpdate();
 
   // useEffect(() => {
@@ -104,19 +101,19 @@ const App = () =>  {
   // }, []);
   useEffect(() => {
     console.log('CALLED')
-    setQueuedTracks(queuedTracks);
+    setTracks(tracks);
   }, []);
 
 
 
   return(
   <React.Fragment>
-  <TopBar queuedTracks={ {items: queuedTracks, setItems: setQueuedTracks } } forceUpdate={ forceUpdate } className={classes.grow } />
+  <TopBar className={classes.grow } />
 
   <Container maxWidth="md" >
-    <Queue tracks={ queuedTracks } />
+    <Queue tracks={ tracks } />
   </Container>
-  <PartyDialog />
+  <PartyDialog tracks={ tracks } forceUpdate={ forceUpdate }/>
   </React.Fragment>
 
 );}

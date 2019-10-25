@@ -111,7 +111,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
+const IntegrationDownshift = ({ tracks, forceUpdate }) => {
   const classes = useStyles();
   const [suggestions, setSuggestions] = useState([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -170,8 +170,8 @@ const IntegrationDownshift = ({ queuedTracks, forceUpdate }) => {
       return;
     }
     console.log(174, getTrack(selectedItem.id));
-    queuedTracks.items.push(getTrack(selectedItem.id));
-    queuedTracks.setItems(queuedTracks.items);
+    tracks.items.push(getTrack(selectedItem.id));
+    tracks.setItems(tracks.items);
     forceUpdate();
   };
 
