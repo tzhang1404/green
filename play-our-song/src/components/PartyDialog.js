@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { reactContext } from '../utils/store';
-import CheckboxesGroup from "./CheckboxesGroup";
+import EventCheckboxesGroup from "./EventCheckboxesGroup";
 
 
 const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
@@ -24,7 +24,7 @@ const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
 		console.log('handleGenerate clicked');
 		ctx.open[1](false);
 		// TODO: @Timo get form information
-		const playlistName = '';
+		const playlistName = ctx.playlistTitle[1];
 		const eventName = '';
 		const genre = [];
 
@@ -50,7 +50,7 @@ const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
         	onChange={handleChange()}
             fullWidth
           />
-          <CheckboxesGroup/>
+          <EventCheckboxesGroup/>
         </DialogContent>
         <DialogActions>
           <Button variant="contained" color="primary"  onClick={() => handleGenerate()}>
