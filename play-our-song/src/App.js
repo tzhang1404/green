@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Queue from './components/Queue';
 import TopBar from './components/TopBar';
+import PartyDialog from './components/PartyDialog';
 import { fade,makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 
 //-----------------START OF SPOTIFY BACKEND SETUP--------------------
 
@@ -27,7 +27,12 @@ console.log(window.location.hash);
 //-----------------END OF SPOTIFY BACKEND SETUP--------------------
 
 export const useStyles = makeStyles(theme => ({
-  
+  root: {
+    flexGrow: 1,
+  },
+  formControl: {
+    marginTop: theme.spacing(3),
+  },
   button: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.background.paper,
@@ -94,10 +99,12 @@ const useForceUpdate = () => {
   };
 }
 
+
+
 const App = () =>  {
   const classes = useStyles();
   // const [allTracks, setAllTracks] = useState({});
-  const [queuedTracks, setQueuedTracks] = useState([]);
+  const [tracks, setTracks] = useState([]);
   const forceUpdate = useForceUpdate();
   const [tokens, setTokens] = useState();
 
@@ -110,7 +117,6 @@ const App = () =>  {
   //   fetchTracks();
   // }, []);
   useEffect(() => {
-    setQueuedTracks(queuedTracks);
     // Set token
     let _token = hash.access_token;
     console.log("hello");
@@ -122,15 +128,18 @@ const App = () =>  {
       setTokens(_token);
       console.log(_token);
     }
+    setTracks(tracks);
   }, []);
+
 
 
   return(
   <React.Fragment>
-  <TopBar token = { tokens } queuedTracks={ {items: queuedTracks, setItems: setQueuedTracks } } forceUpdate={ forceUpdate } className={classes.grow } />
+  <TopBar token={ tokens } className={classes.grow } />
   <Container maxWidth="md" >
-    <Queue tracks={ queuedTracks } />
+    <Queue tracks={ tracks } />
   </Container>
+  <PartyDialog tracks={ tracks } forceUpdate={ forceUpdate }/>
   </React.Fragment>
 
 );}

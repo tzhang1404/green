@@ -9,8 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IntegrationDownshift from './SearchList';
-
-
+import Button from '@material-ui/core/Button';
+import { StoreContext } from '../utils/store';
 
 //-----------------START OF SPOTIFY BACKEND SETUP--------------------
 export const authEndpoint = 'https://accounts.spotify.com/authorize';
@@ -38,31 +38,37 @@ const hash = window.location.hash
 
 //-----------------END OF SPOTIFY BACKEND SETUP--------------------
 
-const TopBar = ({ token, queuedTracks, forceUpdate }) => {
+const TopBar = ({ token }) => {
   const classes = useStyles();
+  const ctx = React.useContext(StoreContext);
+
   return(
-  <AppBar position="fixed">
-      <Toolbar>
-              <IconButton edge="start" color="inherit">
-              <MusicNoteIcon fontSize="large" />
-              </IconButton>
-              <Typography className={classes.title} variant="h6">
-                PlayOurSong
-              </Typography>
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
-                </div>
-                <IntegrationDownshift queuedTracks={ queuedTracks }  forceUpdate={ forceUpdate } />
-              </div>    
+    <div className={classes.root}>
+      <AppBar position="static" >
+        <Toolbar>
+                <IconButton edge="start" color="inherit">
+                <MusicNoteIcon fontSize="large" />
+                </IconButton>
+                <Typography className={classes.title} variant="h6">
+                  PlayOurSong
+                </Typography>
+                <div className={classes.grow} />
+                <Button variant="contained" color="primary" onClick={() => ctx.open[1](true)}>
+                {ctx.playlistTitle[0]}
+                </Button>
+                <div className={classes.grow} />
+
+                <IconButton edge="end" aria-label="account of current user" color="inherit">
+                  <AccountCircle fontSize="large" />
+                </IconButton>
               {!token && (
                 <IconButton  href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`} edge="end" aria-label="account of current user" color="inherit">
                   <AccountCircle fontSize="small" />
                 </IconButton>
               )}          
-              
-      </Toolbar>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
+    </div>
   )
 };
 
