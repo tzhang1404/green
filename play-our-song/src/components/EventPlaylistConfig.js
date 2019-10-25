@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,6 +12,17 @@ import EventCheckboxesGroup from "./EventCheckboxesGroup";
 
 
 const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
+	const [eventToGenres, setEventToGenres] = useState({});
+
+	useEffect(() => {
+		const fetchEventToGenresMapping = async () => {
+			const response = await fetch('./data/Event2Genre.json');
+			const json = await response.json();
+			console.log(json);
+			setEventToGenres(json);
+		};
+		fetchEventToGenresMapping();
+	}, []);
 
 	const ctx = React.useContext(reactContext);
 	// console.log(ctx);
@@ -22,11 +33,15 @@ const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
 
 	const handleGenerate = () => {
 		console.log('handleGenerate clicked');
-		ctx.open[1](false);
+		console.log(ctx);
+		ctx.open[1](false);;
 		// TODO: @Timo get form information
-		const playlistName = ctx.playlistTitle[1];
-		const eventName = '';
-		const genre = [];
+		const playlistTitle = ctx.playlistTitle[0];
+		const playlistEvents = ctx.playlistEvents[0];
+		const allGenresWithDuplications = playlistEvents.reduce(
+			(acc, currEventName) => acc.concat(eventToGenres[currEventName]),
+			[]);
+		const genres = Array.from(new Set(allGenresWithDuplications));
 
 		// TODO: @Kylie get spotify recommended tracks
 

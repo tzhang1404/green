@@ -10,27 +10,24 @@ import { reactContext } from '../utils/store';
 
 const EventCheckboxesGroup =() =>{
 	const [checkboxState, setCheckboxState] = useState({});
-	const [eventToGenres, setEventToGenres] = useState({});
+	const [eventNames, setEventNames] = useState([]);
 	const classes = useStyles();
 	const ctx = React.useContext(reactContext);
 
 	useEffect(() => {
-		const fetchEventToGenresMapping = async () => {
+		const fetchEventNames = async () => {
 			const response = await fetch('./data/Event2Genre.json');
 			const json = await response.json();
 			console.log(json);
-			setEventToGenres(json);
-			const allEvents = Object.keys(json);
-			console.log(allEvents);
-			allEvents.forEach((eventName) => {
+			const eventNames = Object.keys(json);
+			setEventNames(eventNames);
+			eventNames.forEach((eventName) => {
 				checkboxState[eventName] = false;
 			});
 			setCheckboxState(checkboxState);
 		};
-		fetchEventToGenresMapping();
+		fetchEventNames();
 	}, []);
-
-	console.log(ctx);
 
 	const handleChange = eventName => event => {
 		let selectedPlaylistEvents = ctx.playlistEvents[0];
@@ -55,7 +52,7 @@ const EventCheckboxesGroup =() =>{
 			<FormControl component="fieldset" className={ classes.formControl }>
 				<FormGroup>
 					{
-						Object.keys(eventToGenres).map(eventName => (
+						eventNames.map(eventName => (
 							<FormControlLabel
 							 	control={
 									<Checkbox checked={checkboxState[eventName]}
