@@ -1,11 +1,10 @@
 {
   "party": [
-    "party",
     "house",
-    "student",
+    "dance",
     "latin",
     "chill",
-    "electronic/dance"
+    "electro"
   ],
   "study": [
     "classical",
@@ -19,7 +18,8 @@
   "sport": [
     "fitness",
     "wellness",
-    "electronic/dance"
+    "dance",
+    "electro"
   ],
   "sleep": [
     "sleep",

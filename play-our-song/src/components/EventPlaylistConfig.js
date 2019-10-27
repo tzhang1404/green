@@ -22,7 +22,7 @@ var spotifyApi = new SpotifyWebApi({
   clientSecret: client_secret,
   redirectUri: 'http://www.example.com/callback'
 });
-spotifyApi.setAccessToken('BQCTikkYldKjxgJrScHBOH8kR6keRaeST3MwgupsU0Bb76mYOrycXyL19pF3W6e20rSCnq0rHu1xwYEENDfH6MOewhAAr2GwJ70XC17zd_7aEOPLPbDNOVFKcumCOrB6n_Ot2iBF6rSZ9bg9UoMSk16Xou0I31-bDg7aDbuNpkahO9q1P8fpSAleM2Xc8T2hXJFfZnXElxl7dAkaI2Y');
+spotifyApi.setAccessToken('BQBNXuIYqvAnjRf88UtATB6hNBydlF6KxmYicXJq2xjpHTmIrXt_8H-MOOShTAKndjlLYyFmOYMnsGf2eDocKGooXszvdQr46v385AcwLdNcPZi80Yx4XGcRzDlezQwq-RJoWlm_0zQWHOUKjNQd8PuBW12NGesaIDFvwVOom9Vc7F9k2TkoVV4Z8sJWnbs');
 
 
 const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
@@ -56,8 +56,7 @@ const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
 			(acc, currEventName) => acc.concat(eventToGenres[currEventName]),
 			[]);
 		const genres = Array.from(new Set(allGenresWithDuplications));
-
-		// TODO: @Kylie get spotify recommended tracks
+		const trackRecs = getRecommendations(genres);
 
 		// TODO: @Timo render the recommended tracks
 		// TODO: @Timo create a new playlist for a user with user_id
@@ -67,6 +66,21 @@ const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
 
 	const createNewPlaylist = (playlistTitle) => {
 		spotifyApi.createPlaylist(user_id, playlistTitle);
+	};
+
+	async function getRecommendations(genres) {
+		const genresAsString = genres.join(",");
+		const endpoint = "https://api.spotify.com/v1/recommendations?seed_genres=" + genresAsString;
+		const response = await fetch(endpoint, {
+			method: 'GET',
+			headers: {
+				Authorization: "Bearer " + spotifyApi.getAccessToken()
+			}
+		}).then(response => response.json())
+		.then(data => {
+			console.log("track recs from genre seeds:\n",data.tracks);
+			return data.tracks;
+		});
 	};
 
 	return (
