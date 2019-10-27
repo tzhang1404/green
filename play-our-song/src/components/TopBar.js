@@ -57,15 +57,11 @@ const TopBar = ({ token }) => {
                 {ctx.playlistTitle[0]}
                 </Button>
                 <div className={classes.grow} />
-
-                <IconButton edge="end" aria-label="account of current user" color="inherit">
-                  <AccountCircle fontSize="large" />
-                </IconButton>
-              {!token && (
-                <IconButton  href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`} edge="end" aria-label="account of current user" color="inherit">
-                  <AccountCircle fontSize="small" />
-                </IconButton>
-              )}          
+                {!token && (
+                  <IconButton  href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`} edge="end" aria-label="account of current user" color="inherit">
+                    <AccountCircle fontSize="small" />
+                  </IconButton>
+                )}     
         </Toolbar>
       </AppBar>
     </div>

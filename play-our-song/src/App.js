@@ -22,8 +22,6 @@ const hash = window.location.hash
 
 window.location.hash = "";
 
-console.log(window.location.hash);
-
 //-----------------END OF SPOTIFY BACKEND SETUP--------------------
 
 export const useStyles = makeStyles(theme => ({
