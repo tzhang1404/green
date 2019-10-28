@@ -107,6 +107,7 @@ const App = () =>  {
   const [tokens, setTokens] = useState();
   const [profilePic, setProfilePic] = useState();
   const [username, setUsername] = useState();
+  const [userId, setUserId] = useState();
 
   useEffect(() => {
     // Set access token for spotify
@@ -116,12 +117,12 @@ const App = () =>  {
       console.log(_token);
     }
     setTracks(tracks);
-    
+
     if (_token){
       fetch('https://api.spotify.com/v1/me', {
         method: 'GET',
-        headers: {  
-          'Authorization': 'Bearer ' + _token, 
+        headers: {
+          'Authorization': 'Bearer ' + _token,
         }
       })
       .then(res => res.json())
@@ -130,6 +131,7 @@ const App = () =>  {
         console.log(data);
         setProfilePic(data.images[0].url);
         setUsername(data.display_name);
+        setUserId(data.id);
       })
       .catch(console.log)
     }
@@ -143,7 +145,7 @@ const App = () =>  {
   <Container maxWidth="md" >
     <Playlist tracks={ tracks } />
   </Container>
-  <EventPlaylistConfig tracks={ tracks } forceUpdate={ forceUpdate }/>
+  <EventPlaylistConfig tracks={ tracks } userId={ userId } authToken={ tokens } forceUpdate={ forceUpdate }/>
   </React.Fragment>
 
 );}

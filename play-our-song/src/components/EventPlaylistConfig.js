@@ -25,7 +25,7 @@ var spotifyApi = new SpotifyWebApi({
 spotifyApi.setAccessToken('BQBNXuIYqvAnjRf88UtATB6hNBydlF6KxmYicXJq2xjpHTmIrXt_8H-MOOShTAKndjlLYyFmOYMnsGf2eDocKGooXszvdQr46v385AcwLdNcPZi80Yx4XGcRzDlezQwq-RJoWlm_0zQWHOUKjNQd8PuBW12NGesaIDFvwVOom9Vc7F9k2TkoVV4Z8sJWnbs');
 
 
-const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
+const EventPlaylistConfig = ({tracks, userId, authToken, forceUpdate}) =>{
 	const [eventToGenres, setEventToGenres] = useState({});
 
 	useEffect(() => {
@@ -56,25 +56,42 @@ const EventPlaylistConfig = ({tracks, forceUpdate}) =>{
 			(acc, currEventName) => acc.concat(eventToGenres[currEventName]),
 			[]);
 		const genres = Array.from(new Set(allGenresWithDuplications));
+		console.log(genres);
 		const trackRecs = getRecommendations(genres);
 
 		// TODO: @Timo render the recommended tracks
-		// TODO: @Timo create a new playlist for a user with user_id
 		createNewPlaylist(playlistTitle);
 		// TODO: @Timo add tracks to the new playlist
 	};
 
-	const createNewPlaylist = (playlistTitle) => {
-		spotifyApi.createPlaylist(user_id, playlistTitle);
+	const createNewPlaylist = async (playlistTitle) => {
+		// spotifyApi.createPlaylist(userId, playlistTitle);
+		const endpoint = `https://api.spotify.com/v1/users/${userId}/playlists`;
+		console.log("authToken in createNewPlaylist:", authToken);
+		console.log("playlistTitle in createNewPlaylist:", playlistTitle);
+		await fetch(endpoint, {
+			method: 'POST',
+			headers: {
+				Authorization: "Bearer " + authToken,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+					'name': playlistTitle,
+			}),
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log(data);
+		})
 	};
 
-	async function getRecommendations(genres) {
+	const getRecommendations = async (genres) => {
 		const genresAsString = genres.join(",");
 		const endpoint = "https://api.spotify.com/v1/recommendations?seed_genres=" + genresAsString;
-		const response = await fetch(endpoint, {
+		await fetch(endpoint, {
 			method: 'GET',
 			headers: {
-				Authorization: "Bearer " + spotifyApi.getAccessToken()
+				Authorization: "Bearer " + authToken
 			}
 		}).then(response => response.json())
 		.then(data => {
