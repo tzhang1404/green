@@ -105,16 +105,29 @@ const App = () =>  {
   const [tracks, setTracks] = useState([]);
   const forceUpdate = useForceUpdate();
   const [tokens, setTokens] = useState();
+  const [profilePic, setProfilePic] = useState();
 
   useEffect(() => {
-    // Set token
+    // Set access token for spotify
     let _token = hash.access_token;
-    console.log("hello");
     if (_token) {
       setTokens(_token);
       console.log(_token);
     }
     setTracks(tracks);
+
+    fetch('https://api.spotify.com/v1/me', {
+      method: 'GET',
+      headers: {  
+        'Authorization': 'Bearer ' + _token, 
+      }
+    })
+    .then(res => res.json())
+    .then((data) => {
+      //user information returned as a JSON file
+      console.log(data);
+    })
+    .catch(console.log)
   }, []);
 
 
