@@ -106,6 +106,7 @@ const App = () =>  {
   const forceUpdate = useForceUpdate();
   const [tokens, setTokens] = useState();
   const [profilePic, setProfilePic] = useState();
+  const [username, setUsername] = useState();
 
   useEffect(() => {
     // Set access token for spotify
@@ -128,6 +129,7 @@ const App = () =>  {
         //user information returned as a JSON file
         console.log(data);
         setProfilePic(data.images[0].url);
+        setUsername(data.display_name);
       })
       .catch(console.log)
     }
@@ -137,7 +139,7 @@ const App = () =>  {
 
   return(
   <React.Fragment>
-  <TopBar token={ tokens } profilePic = {profilePic} className={classes.grow } />
+  <TopBar token={ tokens } username = {username} profilePic = {profilePic} className={classes.grow } />
   <Container maxWidth="md" >
     <Playlist tracks={ tracks } />
   </Container>

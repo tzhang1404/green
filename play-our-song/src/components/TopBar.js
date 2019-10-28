@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import Box from '@material-ui/core/Box';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -25,7 +26,7 @@ const scopes = [
 
 //the token is the authorization token obtained by the Spotify api in app.js
 //might be expired so the login button checks if the token is set
-const TopBar = ({ token , profilePic }) => {
+const TopBar = ({ token , profilePic, username}) => {
   const classes = useStyles();
   const ctx = React.useContext(reactContext);
 
@@ -50,7 +51,14 @@ const TopBar = ({ token , profilePic }) => {
                   </IconButton>
                 )}  
                 {token && (
-                  <Avatar alt="Remy Sharp" src= {profilePic} className={classes.avatar} />
+                    <div>
+                      <Avatar alt="Remy Sharp" src= {profilePic} className={classes.avatar} />
+                      {/* <span>
+                        <Typography variant="button" display="block" gutterBottom>
+                          {username}
+                        </Typography>
+                      </span>  */}
+                    </div>
                 )}
         </Toolbar>
       </AppBar>
