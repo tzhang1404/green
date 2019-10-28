@@ -145,7 +145,7 @@ const App = () =>  {
   <Container maxWidth="md" >
     <Playlist tracks={ tracks } />
   </Container>
-  <EventPlaylistConfig tracks={ tracks } userId={ userId } authToken={ tokens } forceUpdate={ forceUpdate }/>
+  <EventPlaylistConfig setTracks={ setTracks } userId={ userId } authToken={ tokens } forceUpdate={ forceUpdate }/>
   </React.Fragment>
 
 );}
