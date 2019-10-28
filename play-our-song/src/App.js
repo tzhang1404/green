@@ -115,26 +115,29 @@ const App = () =>  {
       console.log(_token);
     }
     setTracks(tracks);
-
-    fetch('https://api.spotify.com/v1/me', {
-      method: 'GET',
-      headers: {  
-        'Authorization': 'Bearer ' + _token, 
-      }
-    })
-    .then(res => res.json())
-    .then((data) => {
-      //user information returned as a JSON file
-      console.log(data);
-    })
-    .catch(console.log)
+    
+    if (_token){
+      fetch('https://api.spotify.com/v1/me', {
+        method: 'GET',
+        headers: {  
+          'Authorization': 'Bearer ' + _token, 
+        }
+      })
+      .then(res => res.json())
+      .then((data) => {
+        //user information returned as a JSON file
+        console.log(data);
+        setProfilePic(data.images[0].url);
+      })
+      .catch(console.log)
+    }
   }, []);
 
 
 
   return(
   <React.Fragment>
-  <TopBar token={ tokens } className={classes.grow } />
+  <TopBar token={ tokens } profilePic = {profilePic} className={classes.grow } />
   <Container maxWidth="md" >
     <Playlist tracks={ tracks } />
   </Container>

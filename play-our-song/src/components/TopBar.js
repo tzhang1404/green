@@ -1,14 +1,12 @@
 import React from 'react';
 import {useStyles} from '../App';
-
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import IntegrationDownshift from './SearchList';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import { reactContext } from '../utils/store';
 
@@ -27,7 +25,7 @@ const scopes = [
 
 //the token is the authorization token obtained by the Spotify api in app.js
 //might be expired so the login button checks if the token is set
-const TopBar = ({ token }) => {
+const TopBar = ({ token , profilePic }) => {
   const classes = useStyles();
   const ctx = React.useContext(reactContext);
 
@@ -51,6 +49,9 @@ const TopBar = ({ token }) => {
                     <AccountCircle fontSize="small" />
                   </IconButton>
                 )}  
+                {token && (
+                  <Avatar alt="Remy Sharp" src= {profilePic} className={classes.avatar} />
+                )}
         </Toolbar>
       </AppBar>
     </div>
