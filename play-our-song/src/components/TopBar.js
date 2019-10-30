@@ -5,7 +5,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
-import Box from '@material-ui/core/Box';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -38,18 +37,18 @@ const TopBar = ({ token , profilePic, username}) => {
         <Toolbar>
                 <IconButton edge="start" color="inherit">
                 <MusicNoteIcon fontSize="large" />
-                </IconButton>
-                <Typography className={classes.title} variant="h6">
+                </IconButton >
+                <Typography className={classes.title} variant="h4">
                   PlayOurSong
                 </Typography>
                 <div className={classes.grow} />
-                <Button variant="contained" color="primary" onClick={() => ctx.open[1](true)}>
+                <Button className={classes.button2} color="inherit" onClick={() => ctx.open[1](true)}>
                 {ctx.playlistTitle[0]}
                 </Button>
                 <div className={classes.grow} />
                 {!token && (
                   <IconButton  href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`} edge="end" aria-label="account of current user" color="inherit">
-                    <AccountCircle fontSize="small" />
+                    <AccountCircle fontSize="large" />
                   </IconButton>
                 )}
                 {token && (

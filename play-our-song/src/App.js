@@ -4,6 +4,7 @@ import TopBar from './components/TopBar';
 import EventPlaylistConfig from './components/EventPlaylistConfig';
 import { fade,makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { fontSize } from '@material-ui/system';
 
 //-----------------START OF SPOTIFY BACKEND SETUP--------------------
 
@@ -34,6 +35,12 @@ export const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.background.paper,
+  },
+  button2:{
+    margin: theme.spacing(1),
+    marginLeft: -90,
+    marginTop: 10,
+    fontSize: 25,
   },
   grow: {
     flexGrow: 1,
