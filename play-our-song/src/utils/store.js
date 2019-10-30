@@ -5,8 +5,7 @@ export const reactContext = React.createContext(null)
 export default ({ children }) => {
 	const [playlistTitle, setPlaylistTitle] = React.useState('Untitled Playlist');
 	const [playlistEvents, setPlaylistEvents] = React.useState([]);
-	const [open, setOpen] = React.useState(true);
-
+	const [open, setOpen] = React.useState(false);
 
 	const store = {
 		playlistTitle: [playlistTitle, setPlaylistTitle],

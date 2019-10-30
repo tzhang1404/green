@@ -20,7 +20,4 @@ const Playlist = ({ tracks }) => {
   );
 };
 
-
-
-
 export default Playlist;
