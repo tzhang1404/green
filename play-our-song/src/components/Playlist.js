@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   playList: {
-    margin: theme.spacing(0, 0, 0, 0),
+    margin: theme.spacing(0, 0, 0, 30),
     width: '100%',
     position: 'relative',
   },
