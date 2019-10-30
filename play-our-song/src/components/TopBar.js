@@ -1,5 +1,4 @@
 import React from 'react';
-import {useStyles} from '../App';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +8,28 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import { reactContext } from '../utils/store';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  button:{
+    margin: theme.spacing(1),
+    marginLeft: -150,
+    marginTop: 10,
+    fontSize: 25,
+  },
+}));
 
 //-----------------START OF SPOTIFY BACKEND SETUP--------------------
 export const authEndpoint = 'https://accounts.spotify.com/authorize?';
@@ -42,18 +63,23 @@ const TopBar = ({ token , profilePic, username}) => {
                   PlayOurSong
                 </Typography>
                 <div className={classes.grow} />
-                <Button className={classes.button2} color="inherit" onClick={() => ctx.open[1](true)}>
+                <Button className={classes.button} color="inherit" onClick={() => ctx.open[1](true)}>
                 {ctx.playlistTitle[0]}
                 </Button>
                 <div className={classes.grow} />
                 {!token && (
-                  <IconButton  href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`} edge="end" aria-label="account of current user" color="inherit">
+                  <IconButton  
+                  href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`} 
+                  edge="end" 
+                  aria-label="account of current user" 
+                  color="inherit"
+                  >
                     <AccountCircle fontSize="large" />
                   </IconButton>
                 )}
                 {token && (
                     <div>
-                      <Avatar alt="Remy Sharp" src= {profilePic} className={classes.avatar} />
+                      <Avatar alt="Remy Sharp" src= {profilePic} />
                       {/* <span>
                         <Typography variant="button" display="block" gutterBottom>
                           {username}

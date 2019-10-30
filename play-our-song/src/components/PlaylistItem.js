@@ -1,13 +1,19 @@
 import React from 'react';
-import {useStyles} from '../App';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import { makeStyles } from '@material-ui/core/styles';
 
+
+const useStyles = makeStyles(theme=>({
+  button: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
 const giveThumbUp = () =>{
 

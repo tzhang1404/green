@@ -1,8 +1,15 @@
 import React from 'react';
 import PlaylistItem from './PlaylistItem';
-import {useStyles} from '../App';
-
 import List from '@material-ui/core/List';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  playList: {
+    margin: theme.spacing(0, 0, 0, 0),
+    width: '100%',
+    position: 'relative',
+  },
+}));
 
 const Playlist = ({ tracks }) => {
   const classes = useStyles();

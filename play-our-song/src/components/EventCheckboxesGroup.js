@@ -1,12 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {useStyles} from '../App';
-
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { reactContext } from '../utils/store';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+	root: {
+		flexGrow: 1,
+	  },
+	  formControl: {
+		marginTop: theme.spacing(3),
+	  },
+}));
 
 const EventCheckboxesGroup =() =>{
 	const [checkboxState, setCheckboxState] = useState({});
