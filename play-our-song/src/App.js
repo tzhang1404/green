@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Playlist from './components/Playlist';
 import TopBar from './components/TopBar';
 import EventPlaylistConfig from './components/EventPlaylistConfig';
-import { fade,makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { fontSize } from '@material-ui/system';
 
 //-----------------START OF SPOTIFY BACKEND SETUP--------------------
 
@@ -32,43 +31,6 @@ export const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
   },
-  // search: {
-  //   position: 'relative',
-  //   borderRadius: theme.shape.borderRadius,
-  //   backgroundColor: fade(theme.palette.common.white, 0.15),
-  //   '&:hover': {
-  //     backgroundColor: fade(theme.palette.common.white, 0.25),
-  //   },
-  //   marginRight: theme.spacing(2),
-  //   width: '100%',
-  //   [theme.breakpoints.up('sm')]: {
-  //     marginLeft: theme.spacing(3),
-  //     width: '200',
-  //   },
-  // },
-  // searchIcon: {
-  //   width: theme.spacing(7),
-  //   height: '100%',
-  //   position: 'absolute',
-  //   pointerEvents: 'none',
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
-  // inputRoot: {
-  //   color: 'inherit',
-  // },
-  // inputInput: {
-  //   padding: theme.spacing(1, 1, 1, 7),
-  //   transition: theme.transitions.create('width'),
-  //   width: '100%',
-  //   [theme.breakpoints.up('md')]: {
-  //     maxWidth: 800,
-  //   },
-  // },
-  // inline: {
-  //   display: 'inline',
-  // },
 }));
 
 const useForceUpdate = () => {
@@ -79,8 +41,6 @@ const useForceUpdate = () => {
     set(value=> !value);
   };
 }
-
-
 
 const App = () =>  {
   const classes = useStyles();
@@ -119,18 +79,15 @@ const App = () =>  {
     }
   }, []);
 
-
-
   return(
   <React.Fragment>
   <TopBar token={ tokens } username = {username} profilePic = {profilePic} className={classes.grow } />
-  <Container maxWidth="md" >
+  <Container maxWidth="lg" >
     <Playlist tracks={ tracks } />
   </Container>
   <EventPlaylistConfig setTracks={ setTracks } userId={ userId } authToken={ tokens } forceUpdate={ forceUpdate }/>
   </React.Fragment>
 
 );}
-
 
 export default App;

@@ -1,22 +1,28 @@
 import React from 'react';
 import PlaylistItem from './PlaylistItem';
-import List from '@material-ui/core/List';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-  playList: {
-    margin: theme.spacing(0, 0, 0, 30),
-    width: '100%',
-    position: 'relative',
-  },
+  root: {
+    flexGrow: 1,
+    display: "flex",
+    flexWrap: "wrap",
+    marginTop:10,
+    position:"relative"
+  }
 }));
 
 const Playlist = ({ tracks }) => {
   const classes = useStyles();
     return(
-    <List className={classes.playList}>
-      { tracks.map(track => <PlaylistItem track={ track } key={ track.id } />) }
-    </List>
+    <Grid container spacing={3} className={classes.root} >
+      { tracks.map(track => 
+        <Grid item xs={3}>
+        <PlaylistItem track={ track } key={ track.id } />
+        </Grid>
+      )}
+    </Grid>
   );
 };
 
