@@ -12,16 +12,13 @@
     "concentration",
     "chill"
   ],
-  "holiday": [
-    "christmas"
-  ],
-  "sport": [
+  "workout": [
     "fitness",
     "wellness",
     "dance",
     "electro"
   ],
-  "sleep": [
+  "relax": [
     "sleep",
     "classical",
     "concentration"
