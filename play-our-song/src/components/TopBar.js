@@ -59,7 +59,7 @@ const TopBar = ({ token , profilePic, username}) => {
                 <IconButton edge="start" color="inherit">
                 <MusicNoteIcon fontSize="large" />
                 </IconButton >
-                <Typography className={classes.title} variant="h4">
+                <Typography data-cy="title" className={classes.title} variant="h4">
                   PlayOurSong
                 </Typography>
                 <div className={classes.grow} />
